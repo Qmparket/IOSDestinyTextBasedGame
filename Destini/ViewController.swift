@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    var storyCount = 1
     // Our strings
     let story1 = "Your car has blown a tire on a winding road in the middle of nowhere with no cell phone reception. You decide to hitchhike. A rusty pickup truck rumbles to a stop next to you. A man with a wide brimmed hat with soulless eyes opens the passenger door for you and asks: \"Need a ride, boy?\"."
     let answer1a = "I\'ll hop in. Thanks for the help!"
@@ -34,6 +34,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var bottomButton: UIButton!      // Has TAG = 2
     @IBOutlet weak var storyTextView: UILabel!
     
+    @IBOutlet weak var restartButtonOutlet: UIButton!
     // TODO Step 5: Initialise instance variables here
     
     
@@ -42,21 +43,90 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         // TODO Step 3: Set the text for the storyTextView, topButton, bottomButton, and to T1_Story, T1_Ans1, and T1_Ans2
+        topButton.setTitle(answer1a , for: .normal)
+        bottomButton.setTitle(answer1b, for: .normal)
+        storyTextView.text = story1
+        restartButtonOutlet.isHidden = true
         
     }
 
+    @IBAction func restartButton(_ sender: UIButton) {
+        topButton.setTitle(answer1a , for: .normal)
+        bottomButton.setTitle(answer1b, for: .normal)
+        storyTextView.text = story1
+        storyCount = 1
+        bottomButton.isHidden = false
+        topButton.isHidden = false
+        restartButtonOutlet.isHidden = true
+        
+    }
     
     // User presses one of the buttons
     @IBAction func buttonPressed(_ sender: UIButton) {
     
         // TODO Step 4: Write an IF-Statement to update the views
+        if(sender.tag == 1) {
+            if(storyCount < 3){
+                topButton.setTitle(answer3a , for: .normal)
+                bottomButton.setTitle(answer3b, for: .normal)
+                storyTextView.text = story3
+                storyCount = 3
+            } else {
+                storyTextView.text = story6
+                storyCount = 6
+                topButton.isHidden = true
+                bottomButton.isHidden = true
+                startAgain()
+            }
+            
+            
+        } else {
+            if (storyCount == 1){
+                topButton.setTitle(answer2a , for: .normal)
+                bottomButton.setTitle(answer2b, for: .normal)
+                storyTextView.text = story2
+                storyCount = 2
+            }else if(storyCount > 2){
+                
+                storyTextView.text = story5
+                storyCount = 5
+                topButton.isHidden = true
+                bottomButton.isHidden = true
+                startAgain()
+            } else {
+                storyTextView.text = story4
+                storyCount = 4
+                topButton.isHidden = true
+                bottomButton.isHidden = true
+                startAgain()
+            }
+            
+        }
                 
         // TODO Step 6: Modify the IF-Statement to complete the story
         
     
     }
+    
+    func startAgain() {
+//        let alert = UIAlertController(title: "Start Again", message: "you have reached the end of your journey", preferredStyle: UIAlertControllerStyle.alert)
+//        let action = UIAlertAction(title: "restart", style: .default, handler: { (UIAlertAction) in
+//            self.topButton.setTitle(self.answer1a , for: .normal)
+//            self.bottomButton.setTitle(self.answer1b, for: .normal)
+//            self.storyTextView.text = self.story1
+//            self.storyCount = 1
+//            self.bottomButton.isHidden = false
+//            self.topButton.isHidden = false
+//        })
+//        alert.addAction(action)
+//        present(alert, animated: true)
+        restartButtonOutlet.isHidden = false
+        
+        
+    }
+    
+    
     
 
 
